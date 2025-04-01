@@ -2,7 +2,7 @@ from functools import cached_property
 
 from img2table.tables.objects.extraction import ExtractedTable, TableCell
 
-from extract_table.analysis_cell import AnalysisCell
+from .analysis_cell import AnalysisCell
 
 
 class AnalysisTable:
@@ -53,8 +53,11 @@ class AnalysisTable:
                 self.rows,
             )
 
-            # exclude the first row, that might be a header
-            rows_number = len(self.rows) - 1
+
+            rows_number = len(self.rows)
+            if rows_number > 1:
+                # exclude the first row, that might be a header
+                rows_number -= 1
 
             if len(list(name_cells)) / rows_number > self.CONFIDENCE_THRESHOLD:
                 return column_idx

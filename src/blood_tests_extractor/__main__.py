@@ -3,7 +3,7 @@ from pathlib import Path
 
 from img2table.tables.objects.extraction import ExtractedTable
 
-from extract_table.analysis_table import AnalysisTable
+from .analysis_table import AnalysisTable
 
 from img2table.document import PDF
 from img2table.ocr import TesseractOCR
@@ -24,8 +24,8 @@ class DebuggingTable(AnalysisTable):
 
 this_path = os.path.dirname(os.path.abspath(__file__))
 project_path = f"{this_path}/../.."
-# example_input_file = f"{project_path}/examples/input/RZ.pdf"
-example_input_file = f"{project_path}/examples/input/AZ.pdf"
+example_input_file = f"{project_path}/examples/input/RZ.pdf"
+# example_input_file = f"{project_path}/examples/input/AZ.pdf"
 file_name = Path(example_input_file).stem
 output_path = f"{project_path}/examples/output/{file_name}"
 

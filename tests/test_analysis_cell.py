@@ -2,7 +2,7 @@ import unittest
 
 from img2table.tables.objects.extraction import TableCell, BBox
 
-from extract_table.analysis_cell import AnalysisCell
+from src.blood_tests_extractor.analysis_cell import AnalysisCell
 
 
 class TestAnalysisCell(unittest.TestCase):

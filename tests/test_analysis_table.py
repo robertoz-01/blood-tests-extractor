@@ -3,7 +3,7 @@ from collections import OrderedDict
 
 from img2table.tables.objects.extraction import ExtractedTable, BBox, TableCell
 
-from extract_table.analysis_table import AnalysisTable
+from src.blood_tests_extractor.analysis_table import AnalysisTable
 
 bbox = BBox(0, 0, 100, 100)
 title = None
@@ -81,7 +81,7 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(0, at.name_col)
 
     def test_name_col_missing(self):
-        content = OrderedDict([(1, analysis_row_1), (2, analysis_row_unknown_name)])
+        content = OrderedDict([(1, analysis_row_1), (2, analysis_row_unknown_name), (3, analysis_row_unknown_name)])
 
         at = AnalysisTable(ExtractedTable(bbox, title, content))
         self.assertEqual(None, at.name_col)
