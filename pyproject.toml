@@ -22,7 +22,7 @@ Jinja2 = ">=3.1.6,<4.0.0"
 
 
 [tool.poetry]
-packages = [{include = "extract_table", from = "src"}]
+packages = [{include = "blood_tests_extractor", from = "src"}]
 package-mode = false
 
 [build-system]
