@@ -24,8 +24,14 @@ Run an extraction of the analysis tables from a PDF:
 
 1. Copy a PDF with a blood test to `examples/input`
 2. Run `source .venv/bin/activate` to use the poetry virtual environment
-3. Run `python -m src.extract_table`
+3. Run `python -m src.src.blood_tests_extractor`
 4. Look at the generated HTML file(s) in `examples/output` 
+
+Run the tests with:
+
+```shell
+python -m unittest
+```
 
 
 ## TODO
