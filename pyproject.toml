@@ -1,0 +1,30 @@
+[project]
+name = "blood-tests-extractor"
+version = "0.1.0"
+description = "It extracts tables containing blood test results from PDF or image files"
+authors = [
+    {name = "Roberto Zanon"}
+]
+readme = "README.md"
+license-files = ["LICENSE"]
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "img2table (>=1.4.1,<2.0.0)",
+    "pillow (>=11.1.0,<12.0.0)",
+    "black (>=25.1.0,<26.0.0)"
+]
+
+[tool.poetry.group.experiments]
+optional = true
+
+[tool.poetry.group.experiments.dependencies]
+Jinja2 = ">=3.1.6,<4.0.0"
+
+
+[tool.poetry]
+packages = [{include = "extract_table", from = "src"}]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

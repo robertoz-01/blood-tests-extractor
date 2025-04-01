@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        table, th, td {
+          border: 1px solid;
+          padding: 1px;
+        }
+        .extracted_table td:nth-child(1) { border-color: #3976b5; }
+        .extracted_table td:nth-child(2) { border-color: #a100ff; }
+        .extracted_table td:nth-child(3) { border-color: #397727; }
+        .extracted_table td:nth-child(4) { border-color: #8f3f3f; }
+        .extracted_table th:nth-child(1) { border-color: #3976b5; }
+        .extracted_table th:nth-child(2) { border-color: #a100ff; }
+        .extracted_table th:nth-child(3) { border-color: #397727; }
+        .extracted_table th:nth-child(4) { border-color: #8f3f3f; }
+    </style>
+    <title>Tables</title>
+</head>
+<body>
+<h1>Tables</h1>
+
+{% for table in tables %}
+    {%  if not table.is_analysis_table() %}
+        <div style="color: grey">
+            <h3>
+                Ignored table
+            </h3>
+            {% if table.has_expected_columns_number() %}
+                <ul>
+                    {% if table.name_col == None %}
+                        <li>Analysis name column not found</li>
+                    {% endif %}
+                    {% if table.value_col == None %}
+                        <li>Value column not found</li>
+                    {% endif %}
+                    {% if table.unit_col == None %}
+                        <li>Unit column not found</li>
+                    {% endif %}
+                    {% if table.reference_col == None %}
+                        <li>Reference column not found</li>
+                    {% endif %}
+                </ul>
+            {% else %}
+                <ul>
+                    <li>Skipped because of the unexpected number of columns</li>
+                </ul>
+            {% endif %}
+            {{ table.html_table }}
+        </div>
+    {% else %}
+        <div style="color: black">
+            <h3>Extracted table</h3>
+            <table class="extracted_table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Unit</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in table.rows %}
+                        <tr>
+                            <td>{{ row[table.name_col].value }}</td>
+                            <td>{{ row[table.value_col].value }}</td>
+                            <td>{{ row[table.unit_col].value }}</td>
+                            <td>{{ row[table.reference_col].value }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endfor %}
+
+</body>
+</html>
