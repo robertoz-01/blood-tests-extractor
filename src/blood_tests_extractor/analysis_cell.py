@@ -41,6 +41,15 @@ class AnalysisCell:
         "glutammiltransferasi",
         "colesterolo hdl",
         "trigliceridi",
+        "bilirubina totale",
+        "bilirubina diretta",
+        "ast",
+        "albumina",
+        "alfa 1",
+        "alfa 2",
+        "beta 1",
+        "beta 2",
+        "tpsa",
     }
     ANALYSIS_NAME_REGEX = re.compile(
         f".*({"|".join(map(lambda name: f"({name})", ANALYSIS_NAME_DICTIONARY))}).*",
