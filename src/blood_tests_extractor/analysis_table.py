@@ -2,6 +2,7 @@ from functools import cached_property
 
 from img2table.tables.objects.extraction import ExtractedTable, TableCell
 
+from .analysis import Analysis
 from .analysis_cell import AnalysisCell
 
 
@@ -41,7 +42,7 @@ class AnalysisTable:
     def reference_col(self) -> int | None:
         return self.find_column_by_condition(
             lambda analysis_cell: (
-                len(analysis_cell.extract_numbers()) in [1, 2]
+                len(analysis_cell.extract_numbers()) >= 1
                 and analysis_cell.has_range_symbol()
             )
         )
@@ -52,7 +53,6 @@ class AnalysisTable:
                 lambda row: condition(AnalysisCell(row[column_idx])),
                 self.rows,
             )
-
 
             rows_number = len(self.rows)
             if rows_number > 1:
@@ -84,4 +84,29 @@ class AnalysisTable:
 
     @cached_property
     def rows(self) -> list[list[TableCell]]:
-        return list(self._extracted_table.content.values())
+        all_rows = self._extracted_table.content.values()
+        useful_rows: list[list[TableCell]] = []
+        for row in all_rows:
+            if len(list(filter(lambda cell: cell.value, row))) / len(row) > 0.5:
+                useful_rows.append(row)
+
+        return useful_rows
+
+    @cached_property
+    def analyses(self) -> list[Analysis]:
+        complete_analyses: list[Analysis] = []
+        for row in self.rows:
+            if (
+                row[self.value_col].value
+                and row[self.unit_col].value
+                and row[self.reference_col].value
+                and row[self.name_col].value
+            ):
+                entry = Analysis(
+                    original_name=row[self.name_col].value,
+                    original_value=row[self.value_col].value,
+                    original_unit=row[self.unit_col].value,
+                    original_reference=row[self.reference_col].value,
+                )
+                complete_analyses.append(entry)
+        return complete_analyses

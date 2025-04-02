@@ -32,6 +32,22 @@ analysis_row_unknown_name = [
     TableCell(bbox=bbox, value=None),
 ]
 
+analysis_row_with_missing_values = [
+    TableCell(bbox=bbox, value="Analyses"),
+    TableCell(bbox=bbox, value=None),
+    TableCell(bbox=bbox, value=None),
+    TableCell(bbox=bbox, value=None),
+    TableCell(bbox=bbox, value=None),
+]
+
+analysis_row_without_one_required_field = [
+    TableCell(bbox=bbox, value="BASOFILI"),
+    TableCell(bbox=bbox, value=None),
+    TableCell(bbox=bbox, value="%"),
+    TableCell(bbox=bbox, value="0,0 - 1,1"),
+    TableCell(bbox=bbox, value=None),
+]
+
 analysis_row_3 = [
     TableCell(bbox=bbox, value="(Sg)Er-EMOGLOBINA"),
     TableCell(bbox=bbox, value="11.0 *"),
@@ -81,7 +97,13 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual(0, at.name_col)
 
     def test_name_col_missing(self):
-        content = OrderedDict([(1, analysis_row_1), (2, analysis_row_unknown_name), (3, analysis_row_unknown_name)])
+        content = OrderedDict(
+            [
+                (1, analysis_row_1),
+                (2, analysis_row_unknown_name),
+                (3, analysis_row_unknown_name),
+            ]
+        )
 
         at = AnalysisTable(ExtractedTable(bbox, title, content))
         self.assertEqual(None, at.name_col)
@@ -103,3 +125,45 @@ class TestStringMethods(unittest.TestCase):
 
         at = AnalysisTable(ExtractedTable(bbox, title, content))
         self.assertEqual(2, at.unit_col)
+
+    def test_rows(self):
+        content = OrderedDict([(1, analysis_row_1), (2, analysis_row_2)])
+
+        at = AnalysisTable(ExtractedTable(bbox, title, content))
+        self.assertEqual(2, len(at.rows))
+
+    def test_rows_skips_the_ones_with_too_many_missing_values(self):
+        content = OrderedDict(
+            [
+                (1, analysis_row_1),
+                (2, analysis_row_2),
+                (3, analysis_row_with_missing_values),
+            ]
+        )
+
+        at = AnalysisTable(ExtractedTable(bbox, title, content))
+        self.assertEqual(2, len(at.rows))
+
+    def test_analyses(self):
+        content = OrderedDict(
+            [
+                (1, analysis_row_1),
+                (2, analysis_row_2),
+                (3, analysis_row_without_one_required_field),
+            ]
+        )
+
+        at = AnalysisTable(ExtractedTable(bbox, title, content))
+        self.assertEqual(2, len(at.analyses))
+
+        # expected_analysis = Analysis(
+        #     original_name="EOSINOFILI",
+        #     original_value="1,5",
+        #     original_reference="0,7 - 4,7",
+        #     original_unit="%",
+        # )
+        analysis = at.analyses[0]
+        self.assertEqual("EOSINOFILI", analysis.name)
+        self.assertEqual("1,5", analysis.value)
+        self.assertEqual("%", analysis.unit)
+        self.assertEqual("0,7 - 4,7", analysis.reference)

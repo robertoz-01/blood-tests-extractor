@@ -50,6 +50,17 @@ class AnalysisCell:
         "beta 1",
         "beta 2",
         "tpsa",
+        "proteina c reattiva",
+        "p.c.r.",
+        "tsh",
+        "tireotropina",
+        "colesterolo",
+        "trigliceridi",
+        "vitamina d",
+        "sideremia",
+        "ferritina",
+        "potassiemia",
+        "sodiemia",
     }
     ANALYSIS_NAME_REGEX = re.compile(
         f".*({"|".join(map(lambda name: f"({name})", ANALYSIS_NAME_DICTIONARY))}).*",

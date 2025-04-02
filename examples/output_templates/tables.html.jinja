@@ -61,16 +61,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in table.rows %}
+                    {% for analysis in table.analyses %}
                         <tr>
-                            <td>{{ row[table.name_col].value }}</td>
-                            <td>{{ row[table.value_col].value }}</td>
-                            <td>{{ row[table.unit_col].value }}</td>
-                            <td>{{ row[table.reference_col].value }}</td>
+                            <td>{{ analysis.original_name }}</td>
+                            <td>{{ analysis.original_value }}</td>
+                            <td>{{ analysis.original_unit }}</td>
+                            <td>{{ analysis.original_reference }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
+            <h4>The Original table was:</h4>
+            <div style="color: grey">
+                {{ table.html_table }}
+            </div>
         </div>
     {% endif %}
 {% endfor %}

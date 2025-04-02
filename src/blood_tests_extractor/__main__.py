@@ -9,6 +9,7 @@ from img2table.document import PDF
 from img2table.ocr import TesseractOCR
 from jinja2 import Environment, FileSystemLoader
 
+
 # Add some debugging information on top of AnalysisTable
 class DebuggingTable(AnalysisTable):
     def __init__(self, extracted_table: ExtractedTable, page_nb: int, table_idx: int):
@@ -17,6 +18,7 @@ class DebuggingTable(AnalysisTable):
         self.table_idx = table_idx
         self.html_table = extracted_table.html
         self.title = extracted_table.title
+
 
 #
 # Setup path variables
@@ -33,11 +35,13 @@ output_path = f"{project_path}/examples/output/{file_name}"
 # Function definitions
 #
 
+
 def prepare_output_path():
     if not os.path.exists(output_path):
         os.makedirs(output_path)
     for output_file in glob.glob(f"{output_path}/*.html"):
         os.remove(output_file)
+
 
 def extract_tables() -> dict[int, list[ExtractedTable]]:
     pdf = PDF(example_input_file, detect_rotation=False, pdf_text_extraction=True)
@@ -52,7 +56,10 @@ def extract_tables() -> dict[int, list[ExtractedTable]]:
         min_confidence=30,
     )
 
-def build_debugging_tables(extracted_tables: dict[int, list[ExtractedTable]]) -> list[DebuggingTable]:
+
+def build_debugging_tables(
+    extracted_tables: dict[int, list[ExtractedTable]],
+) -> list[DebuggingTable]:
     debugging_tables: list[DebuggingTable] = []
     for page_nb, tables in extracted_tables.items():
         for idx, t in enumerate(tables):
@@ -61,12 +68,15 @@ def build_debugging_tables(extracted_tables: dict[int, list[ExtractedTable]]) ->
 
 
 def render_tables(debugging_tables: list[DebuggingTable]):
-    environment = Environment(loader=FileSystemLoader(f"{project_path}/examples/output_templates/"))
+    environment = Environment(
+        loader=FileSystemLoader(f"{project_path}/examples/output_templates/")
+    )
     template = environment.get_template("tables.html.jinja")
 
     content = template.render(tables=debugging_tables, title=file_name)
     with open(f"{output_path}/tables.html", mode="w", encoding="utf-8") as message:
         message.write(content)
+
 
 #
 # Run it!
