@@ -64,7 +64,7 @@ def render_tables(debugging_tables: list[DebuggingTable]):
     environment = Environment(loader=FileSystemLoader(f"{project_path}/examples/output_templates/"))
     template = environment.get_template("tables.html.jinja")
 
-    content = template.render(tables=debugging_tables)
+    content = template.render(tables=debugging_tables, title=file_name)
     with open(f"{output_path}/tables.html", mode="w", encoding="utf-8") as message:
         message.write(content)
 
