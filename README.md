@@ -1,16 +1,39 @@
 # Blood-Tests-Extractor
 
-It extracts tables containing blood test results from PDF or image files.
+It extracts the blood test results from PDF or image files.
 
-It can be used as an HTTP service. For example:
+It can be used as an HTTP service.
+
+Example request:
 
 ```shell
-curl ...
+curl -F file=@examples/input/checkup-2025-01-15.pdf http://localhost:8000/blood-test-pdf | jq
 ```
 
-## Usage
+Example response:
 
-Run the HTTP service with: ...
+```json
+[
+  {
+    "name": "GLOBULI BIANCHI",
+    "value": 7.44,
+    "unit": "x10^3/µl",
+    "reference": "4,00 - 9,50"
+  },
+  {
+    "name": "GLOBULI ROSSI",
+    "value": 5.22,
+    "unit": "x10^6/µl",
+    "reference": "4,70 - 5,82"
+  },
+  {
+    "name": "PIASTRINE",
+    "value": 250.0,
+    "unit": "x10^3/µl",
+    "reference": "140 - 400"
+  }
+]
+```
 
 ## Development
 
