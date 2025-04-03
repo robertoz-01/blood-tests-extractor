@@ -30,6 +30,8 @@ example_input_file = f"{project_path}/examples/input/RZ.pdf"
 # example_input_file = f"{project_path}/examples/input/AZ.pdf"
 file_name = Path(example_input_file).stem
 output_path = f"{project_path}/examples/output/{file_name}"
+with open(example_input_file, "r+b") as f:
+    pdf_bytes = f.read()
 
 #
 # Function definitions
@@ -43,8 +45,8 @@ def prepare_output_path():
         os.remove(output_file)
 
 
-def extract_tables() -> dict[int, list[ExtractedTable]]:
-    pdf = PDF(example_input_file, detect_rotation=False, pdf_text_extraction=True)
+def extract_tables(pdf_content: bytes) -> dict[int, list[ExtractedTable]]:
+    pdf = PDF(pdf_content, detect_rotation=False, pdf_text_extraction=True)
 
     ocr = TesseractOCR(n_threads=4, lang="ita")
 
@@ -83,4 +85,4 @@ def render_tables(debugging_tables: list[DebuggingTable]):
 #
 
 prepare_output_path()
-render_tables(build_debugging_tables(extract_tables()))
+render_tables(build_debugging_tables(extract_tables(pdf_bytes)))

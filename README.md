@@ -33,6 +33,11 @@ Run the tests with:
 python -m unittest
 ```
 
+Run the http server with:
+
+```shell
+uvicorn src.http_api.main:app --reload
+```
 
 ## TODO
 * Recognise the language first. In this way analysis name, decimal numbers, unit measure can be recognized more accurately.

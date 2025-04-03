@@ -11,20 +11,21 @@ class Analysis:
     original_unit: str
     original_reference: str
 
-    # TODO, the following methods needs to be implemented parsing the original properties
-
     @cached_property
-    def name(self):
+    def name(self) -> str:
         return self.original_name
 
     @cached_property
-    def value(self):
-        return self.original_value
+    def value(self) -> float | None:
+        try:
+            return float(self.original_value)
+        except ValueError:
+            return None
 
     @cached_property
-    def reference(self):
-        return self.original_reference
-
-    @cached_property
-    def unit(self):
+    def unit(self) -> str:
         return self.original_unit
+
+    @cached_property
+    def reference(self) -> str:
+        return self.original_reference
