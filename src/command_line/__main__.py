@@ -1,4 +1,5 @@
 import os, glob
+import sys
 from pathlib import Path
 
 from img2table.tables.objects.extraction import ExtractedTable
@@ -6,6 +7,12 @@ from jinja2 import Environment, FileSystemLoader
 
 from src.blood_tests_extractor.analysis_table import AnalysisTable
 from src.blood_tests_extractor.extractor import Extractor
+
+if len(sys.argv) != 2:
+    sys.stderr.write("Missing input file argument\n")
+    sys.exit(1)
+
+example_input_file = sys.argv[1]
 
 
 # Add some debugging information on top of AnalysisTable
@@ -24,8 +31,6 @@ class DebuggingTable(AnalysisTable):
 
 this_path = os.path.dirname(os.path.abspath(__file__))
 project_path = f"{this_path}/../.."
-example_input_file = f"{project_path}/examples/input/RZ.pdf"
-# example_input_file = f"{project_path}/examples/input/AZ.pdf"
 file_name = Path(example_input_file).stem
 output_path = f"{project_path}/examples/output/{file_name}"
 with open(example_input_file, "r+b") as f:
