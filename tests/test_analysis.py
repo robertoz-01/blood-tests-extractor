@@ -1,6 +1,6 @@
 import unittest
 
-from blood_tests_extractor.analysis import Analysis
+from src.blood_tests_extractor.analysis import Analysis
 
 
 class TestAnalysisCell(unittest.TestCase):

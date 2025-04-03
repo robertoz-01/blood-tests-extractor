@@ -156,14 +156,8 @@ class TestStringMethods(unittest.TestCase):
         at = AnalysisTable(ExtractedTable(bbox, title, content))
         self.assertEqual(2, len(at.analyses))
 
-        # expected_analysis = Analysis(
-        #     original_name="EOSINOFILI",
-        #     original_value="1,5",
-        #     original_reference="0,7 - 4,7",
-        #     original_unit="%",
-        # )
         analysis = at.analyses[0]
         self.assertEqual("EOSINOFILI", analysis.name)
-        self.assertEqual("1,5", analysis.value)
+        self.assertEqual(1.5, analysis.value)
         self.assertEqual("%", analysis.unit)
         self.assertEqual("0,7 - 4,7", analysis.reference)

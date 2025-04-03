@@ -15,19 +15,19 @@ Example response:
 ```json
 [
   {
-    "name": "GLOBULI BIANCHI",
+    "name": "WHITE BLOOD CELLS",
     "value": 7.44,
     "unit": "x10^3/µl",
     "reference": "4,00 - 9,50"
   },
   {
-    "name": "GLOBULI ROSSI",
+    "name": "RED BLOOD CELLS",
     "value": 5.22,
     "unit": "x10^6/µl",
     "reference": "4,70 - 5,82"
   },
   {
-    "name": "PIASTRINE",
+    "name": "PLATELETS",
     "value": 250.0,
     "unit": "x10^3/µl",
     "reference": "140 - 400"
@@ -47,7 +47,7 @@ Run an extraction of the analysis tables from a PDF:
 
 1. Copy a PDF with a blood test to `examples/input`
 2. Run `source .venv/bin/activate` to use the poetry virtual environment
-3. Run `python -m src.blood_tests_extractor`
+3. Run `black src/ tests/`
 4. Look at the generated HTML file(s) in `examples/output` 
 
 Run the tests with:
@@ -61,6 +61,8 @@ Run the http server with:
 ```shell
 uvicorn src.http_api.main:app --reload
 ```
+
+The code is formatted using `black`. Either configure the IDE to use it or run `black src/ tests/`. 
 
 ## TODO
 * Recognise the language first. In this way analysis name, decimal numbers, unit measure can be recognized more accurately.

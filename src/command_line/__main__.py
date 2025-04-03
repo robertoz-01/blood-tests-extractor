@@ -2,12 +2,10 @@ import os, glob
 from pathlib import Path
 
 from img2table.tables.objects.extraction import ExtractedTable
-
-from .analysis_table import AnalysisTable
-
-from img2table.document import PDF
-from img2table.ocr import TesseractOCR
 from jinja2 import Environment, FileSystemLoader
+
+from src.blood_tests_extractor.analysis_table import AnalysisTable
+from src.blood_tests_extractor.extractor import Extractor
 
 
 # Add some debugging information on top of AnalysisTable
@@ -45,31 +43,17 @@ def prepare_output_path():
         os.remove(output_file)
 
 
-def extract_tables(pdf_content: bytes) -> dict[int, list[ExtractedTable]]:
-    pdf = PDF(pdf_content, detect_rotation=False, pdf_text_extraction=True)
-
-    ocr = TesseractOCR(n_threads=4, lang="ita")
-
-    return pdf.extract_tables(
-        ocr=ocr,
-        implicit_rows=False,
-        implicit_columns=False,
-        borderless_tables=True,
-        min_confidence=30,
-    )
-
-
 def build_debugging_tables(
-    extracted_tables: dict[int, list[ExtractedTable]],
+    page_and_tables: dict[int, list[ExtractedTable]],
 ) -> list[DebuggingTable]:
     debugging_tables: list[DebuggingTable] = []
-    for page_nb, tables in extracted_tables.items():
+    for page_nb, tables in page_and_tables.items():
         for idx, t in enumerate(tables):
             debugging_tables.append(DebuggingTable(t, page_nb, idx))
     return debugging_tables
 
 
-def render_tables(debugging_tables: list[DebuggingTable]):
+def render_tables_to_html(debugging_tables: list[DebuggingTable]):
     environment = Environment(
         loader=FileSystemLoader(f"{project_path}/examples/output_templates/")
     )
@@ -85,4 +69,5 @@ def render_tables(debugging_tables: list[DebuggingTable]):
 #
 
 prepare_output_path()
-render_tables(build_debugging_tables(extract_tables(pdf_bytes)))
+extracted_tables = Extractor.extract_raw_tables_from_pdf(pdf_bytes)
+render_tables_to_html(build_debugging_tables(extracted_tables))
