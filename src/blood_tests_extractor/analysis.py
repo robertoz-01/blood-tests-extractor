@@ -18,7 +18,7 @@ class Analysis:
     @cached_property
     def value(self) -> float | None:
         try:
-            return float(self.original_value)
+            return float(self.original_value.replace(",", "."))
         except ValueError:
             return None
 
