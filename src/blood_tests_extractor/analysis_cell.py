@@ -12,6 +12,7 @@ class AnalysisCell:
         "g",
         "fl",
         "pg",
+        "μl",
         "µl",
         "mg",
         "u",

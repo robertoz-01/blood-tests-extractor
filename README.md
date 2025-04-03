@@ -2,38 +2,59 @@
 
 It extracts the blood test results from PDF or image files.
 
-It can be used as an HTTP service.
+It runs an HTTP service that receives a PDF in a POST request and returns a JSON containing the information
+for each analysis.
 
-Example request:
+It can also be used locally for experiments; in this case, it reads a PDF file and generates an HTML file
+containing the tables with analysis data and other debugging information.
+
+The extraction of the tables from the PDF or images is based on the package [img2table](https://github.com/xavctn/img2table).
+
+## Example
+
+From a PDF containing:
+
+<kbd> ![Section of a PDF containing a blood test result](docs/input.png) </kbd>
+
+With the request:
 
 ```shell
 curl -F file=@examples/input/checkup-2025-01-15.pdf http://localhost:8000/blood-test-pdf | jq
 ```
 
-Example response:
+You get the response:
 
 ```json
 [
   {
-    "name": "WHITE BLOOD CELLS",
-    "value": 7.44,
-    "unit": "x10^3/µl",
+    "name": "GLOBULI BIANCHI",
+    "value": 6.73,
+    "unit": "x10^3/μl",
     "reference": "4,00 - 9,50"
   },
   {
-    "name": "RED BLOOD CELLS",
-    "value": 5.22,
-    "unit": "x10^6/µl",
+    "name": "GLOBULI ROSSI",
+    "value": 7.22,
+    "unit": "x10^6/μl",
     "reference": "4,70 - 5,82"
   },
   {
-    "name": "PLATELETS",
-    "value": 250.0,
-    "unit": "x10^3/µl",
-    "reference": "140 - 400"
+    "name": "EMOGLOBINA",
+    "value": 16.8,
+    "unit": "g/dl",
+    "reference": "14,2 - 17,2"
   }
 ]
 ```
+
+And executing:
+```shell
+python -m src.command_line examples/input/checkup-2025-01-15.pdf
+```
+
+It generates an HTML containing:
+
+<kbd> ![Section of the output HTML file](docs/html_output.png) </kbd>
 
 ## Development
 
@@ -64,6 +85,6 @@ uvicorn src.http_api.main:app --reload
 
 The code is formatted using `black`. Either configure the IDE to use it or run `black src/ tests/`. 
 
-## TODO
+## TODO list
 * Recognise the language first. In this way analysis name, decimal numbers, unit measure can be recognized more accurately.
 * Recognise the type of column through machine learning instead of using the fixed `AnalysisTable.CONFIDENCE_THRESHOLD` 
