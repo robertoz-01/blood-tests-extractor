@@ -14,7 +14,8 @@ dependencies = [
     "black (>=25.1.0,<26.0.0)",
     "fastapi (>=0.115.12,<0.116.0)",
     "uvicorn[standard] (>=0.34.0,<0.35.0)",
-    "python-multipart (>=0.0.20,<0.0.21)"
+    "python-multipart (>=0.0.20,<0.0.21)",
+    "coverage (>=7.8.0,<8.0.0)"
 ]
 
 [tool.poetry.group.experiments]
@@ -31,3 +32,8 @@ package-mode = false
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+branch = true
+omit = ["config.py", "config-3.py"]
+source = ["src"]

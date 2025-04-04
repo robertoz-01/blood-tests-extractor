@@ -1,3 +1,5 @@
 /examples/input/*
 /examples/output/*
 .idea
+/.coverage
+/htmlcov/

@@ -71,10 +71,16 @@ Run an extraction of the analysis tables from a PDF:
 3. Run `python -m src.command_line examples/input/checkup-123.pdf`
 4. Look at the generated HTML file(s) in `examples/output` 
 
-Run the tests with:
+Run the tests and coverage with:
 
 ```shell
-python -m unittest
+coverage run -m unittest
+```
+
+Generate the coverage HTML report with:
+
+```shell
+coverage html
 ```
 
 Run the http server with:
