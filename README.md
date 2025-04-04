@@ -61,7 +61,7 @@ It generates an HTML containing:
 Install the dependencies with:
 
 ```shell
-poetry install --with experiments
+poetry install --with development
 ```
 
 Run an extraction of the analysis tables from a PDF:

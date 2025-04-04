@@ -1,5 +1,3 @@
-from typing import Self
-
 from pydantic import BaseModel
 
 from src.blood_tests_extractor.analysis import Analysis
