@@ -4,7 +4,7 @@ from pathlib import Path
 
 from lxml import html
 
-from command_line.__main__ import main
+from src.command_line.__main__ import main
 
 
 class TestMain(unittest.TestCase):
