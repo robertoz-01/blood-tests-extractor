@@ -12,17 +12,17 @@ The extraction of the tables from the PDF or images is based on the package [img
 
 ## Example
 
-From a PDF containing:
+From a PDF containing
 
 <kbd> ![Section of a PDF containing a blood test result](docs/input.png) </kbd>
 
-With the request:
+with the HTTP request
 
 ```shell
 curl -F file=@examples/input/checkup-2025-01-15.pdf http://localhost:8000/blood-test-pdf | jq
 ```
 
-You get the response:
+you get the JSON response:
 
 ```json
 [
@@ -47,12 +47,12 @@ You get the response:
 ]
 ```
 
-And executing:
+From the command line, executing
 ```shell
 python -m src.command_line examples/input/checkup-2025-01-15.pdf
 ```
 
-It generates an HTML containing:
+it generates an HTML containing:
 
 <kbd> ![Section of the output HTML file](docs/html_output.png) </kbd>
 
@@ -68,7 +68,7 @@ Run an extraction of the analysis tables from a PDF:
 
 1. Copy a PDF with a blood test to `examples/input`
 2. Run `source .venv/bin/activate` to use the poetry virtual environment
-3. Run `python -m src.command_line examples/input/checkup-123.pdf`
+3. Run `python -m src.command_line examples/input/checkup-123.pdf` (There is an example pdf file in `tests/data/fake-blood-check.pdf`)
 4. Look at the generated HTML file(s) in `examples/output` 
 
 Run the tests and coverage with:
