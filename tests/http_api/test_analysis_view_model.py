@@ -4,7 +4,7 @@ from src.blood_tests_extractor.analysis import Analysis
 from src.http_api.analysis_view_model import AnalysisViewModel
 
 
-class TestAnalysisCell(unittest.TestCase):
+class TestAnalysisViewModel(unittest.TestCase):
     def test_value(self):
         analysis = Analysis(
             original_name="Hemoglobin",
@@ -16,4 +16,5 @@ class TestAnalysisCell(unittest.TestCase):
         self.assertEqual("Hemoglobin", view_model.name)
         self.assertEqual(16, view_model.value)
         self.assertEqual("g/dl", view_model.unit)
-        self.assertEqual("14.1 - 18.5", view_model.reference)
+        self.assertEqual(14.1, view_model.reference_lower)
+        self.assertEqual(18.5, view_model.reference_upper)

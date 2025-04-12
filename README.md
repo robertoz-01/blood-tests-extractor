@@ -30,19 +30,22 @@ you get the JSON response:
     "name": "GLOBULI BIANCHI",
     "value": 6.73,
     "unit": "x10^3/μl",
-    "reference": "4,00 - 9,50"
+    "reference_lower": 4,
+    "reference_upper": 9.5
   },
   {
     "name": "GLOBULI ROSSI",
     "value": 7.22,
     "unit": "x10^6/μl",
-    "reference": "4,70 - 5,82"
+    "reference_lower": 4.7,
+    "reference_uppper": 5.82
   },
   {
-    "name": "EMOGLOBINA",
-    "value": 16.8,
-    "unit": "g/dl",
-    "reference": "14,2 - 17,2"
+    "name": "COLESTEROLO HDL",
+    "value": 63,
+    "unit": "mg/dl",
+    "reference_lower": 40,
+    "reference_upper": null
   }
 ]
 ```

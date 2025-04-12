@@ -19,9 +19,10 @@ class TestApp(unittest.TestCase):
         self.assertIn(
             {
                 "name": "GLOBULI BIANCHI",
-                "reference": "4,00 - 9,50",
                 "unit": "x10^3/μl",
                 "value": 6.73,
+                "reference_lower": 4.0,
+                "reference_upper": 9.5,
             },
             json_body,
         )
@@ -29,9 +30,10 @@ class TestApp(unittest.TestCase):
         self.assertIn(
             {
                 "name": "LINFOCITI",
-                "reference": "20,0 - 48,0",
                 "unit": "%",
                 "value": 33.3,
+                "reference_lower": 20,
+                "reference_upper": 48,
             },
             json_body,
         )

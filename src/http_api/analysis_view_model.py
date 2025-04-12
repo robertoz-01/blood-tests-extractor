@@ -7,7 +7,8 @@ class AnalysisViewModel(BaseModel):
     name: str
     value: float | None
     unit: str
-    reference: str
+    reference_lower: float | None
+    reference_upper: float | None
 
     @staticmethod
     def build_from(analysis: Analysis) -> "AnalysisViewModel":
@@ -15,5 +16,6 @@ class AnalysisViewModel(BaseModel):
             name=analysis.name,
             value=analysis.value,
             unit=analysis.unit,
-            reference=analysis.reference,
+            reference_lower=analysis.reference_lower,
+            reference_upper=analysis.reference_upper,
         )
