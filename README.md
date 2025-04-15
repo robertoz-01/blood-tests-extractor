@@ -1,14 +1,18 @@
 # Blood-Tests-Extractor
 
-It extracts the blood test results from PDF or image files.
+This tool extracts blood test results from PDF or image files.
 
-It runs an HTTP service that receives a PDF in a POST request and returns a JSON containing the information
-for each analysis.
+It provides an HTTP service that accepts a PDF via a POST request and returns a JSON response containing detailed
+information for each analysis result.
 
-It can also be used locally for experiments; in this case, it reads a PDF file and generates an HTML file
-containing the tables with analysis data and other debugging information.
+In addition to its HTTP service, it can be used locally for experimentation.
+In this mode, the tool processes a PDF file and generates an HTML file displaying the extracted tables and debugging information.
 
-The extraction of the tables from the PDF or images is based on the package [img2table](https://github.com/xavctn/img2table).
+The extraction of tables from PDFs or images is powered by the [img2table](https://github.com/xavctn/img2table)
+library.
+
+This service is used by [Blood-Tests-App](https://github.com/robertoz-01/blood-tests-app), a web
+application for digitalizing, managing, and comparing collections of blood test results.
 
 ## Example
 
@@ -19,7 +23,7 @@ From a PDF containing
 with the HTTP request
 
 ```shell
-curl -F file=@examples/input/checkup-2025-01-15.pdf http://localhost:8000/blood-test-pdf | jq
+    curl -F file=@examples/input/checkup-2025-01-15.pdf http://localhost:8000/blood-test-pdf | jq
 ```
 
 you get the JSON response:
@@ -38,7 +42,7 @@ you get the JSON response:
     "value": 7.22,
     "unit": "x10^6/μl",
     "reference_lower": 4.7,
-    "reference_uppper": 5.82
+    "reference_upper": 5.82
   },
   {
     "name": "COLESTEROLO HDL",
